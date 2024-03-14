@@ -28,7 +28,7 @@ https://developer.apple.com/support/third-party-SDK-requirements/
 ## 中文版本
 
 ### 描述
-此腳本掃描指定的項目目錄，搜索API使用情況和依賴項，更新或創建`PrivacyInfo.xcprivacy`文件，並生成搜索結果的文本報告。
+此腳本掃描指定的項目目錄，是否有使用Apple 列出需要註記API和列出套件，更新或創建`PrivacyInfo.xcprivacy`文件，並生成搜索結果的文本報告。
 
 ### Apple Resource
 https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/
@@ -46,6 +46,6 @@ https://developer.apple.com/support/third-party-SDK-requirements/
 3. **按提示操作**選擇是否搜索依賴項以及是否排除任何目錄。
 
 ### 輸入提示
-- "您是否要搜索依賴項？(y/n): " - 回答'y'開始搜索依賴項，或者'n'跳過此步驟。
+- "您是否要搜索套件？(y/n): " - 回答'y'開始搜索套件，或者'n'跳過此步驟。
 - "您是否要排除某些目錄？(y/n): " - 如果您想從掃描中排除目錄，請回答'y'。
   - 如果您選擇了'y'，將提示："請輸入要排除的目錄（用空格分隔）: "，在此處指定要排除的目錄。
