@@ -43,7 +43,7 @@ This script scans a specified project directory for API usage and dependencies, 
      ```
      python3 update_privacy_info.py <項目目錄路徑>
      ```
-3. **按提示操作**選擇是否搜索依賴項以及是否排除任何目錄。
+3. **按提示操作**選擇是否搜索套件以及是否排除任何目錄。
 
 ### 輸入提示
 - "您是否要搜索套件？(y/n): " - 回答'y'開始搜索套件，或者'n'跳過此步驟。
