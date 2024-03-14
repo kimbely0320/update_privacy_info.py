@@ -6,8 +6,8 @@
 This script scans a specified project directory for API usage and dependencies, updates or creates a `PrivacyInfo.xcprivacy` file, and generates a text report of the findings.
 
 ### Apple Resource
-https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/
-https://developer.apple.com/support/third-party-SDK-requirements/
+- https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/
+- https://developer.apple.com/support/third-party-SDK-requirements/
 
 ### Usage
 1. **Prerequisites:** Ensure Python 3 is installed on your system.
@@ -31,8 +31,8 @@ https://developer.apple.com/support/third-party-SDK-requirements/
 此腳本掃描指定的項目目錄，是否有使用Apple 列出需要註記API和列出套件，更新或創建`PrivacyInfo.xcprivacy`文件，並生成搜索結果的文本報告。
 
 ### Apple Resource
-https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/
-https://developer.apple.com/support/third-party-SDK-requirements/
+- https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/
+- https://developer.apple.com/support/third-party-SDK-requirements/
 
 ### 使用方法
 1. **前提條件：**確保系統上安裝了Python 3。
