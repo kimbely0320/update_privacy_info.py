@@ -3,6 +3,7 @@ import os
 import datetime
 import xml.etree.ElementTree as ET
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api
 api_patterns = {
@@ -47,59 +48,98 @@ dependencies = [
     "url_launcher_ios", "video_player_avfoundation", "wakelock", "webview_flutter_wkwebview"
 ]
 
+# 在全局作用域預編譯正則表達式
+compiled_api_patterns = {key: [re.compile(pattern) for pattern in patterns] for key, patterns in api_patterns.items()}
+compiled_dep_patterns_swift = {dep: re.compile(r'import\s+' + re.escape(dep)) for dep in dependencies}
+compiled_dep_patterns_objc = {dep: re.compile(r'#import\s+["<]' + re.escape(dep) + r'[\./]') for dep in dependencies}
+
 
 # 請求用戶輸入的函數
 def user_input(message):
     return input(message)
+    
 
 # 在指定目錄中搜索文件，檢查API使用和套件
-def search_files(directory, excluded_dirs):
-    found_patterns = {} # 存儲找到的API模式及其位置
-    found_deps = set() # 存儲找到的套件
+# 更新後的搜索文件函數
+def process_file(file_path, search_deps):
+    found_patterns = {}  # 存儲找到的API模式及其位置
+    found_deps = set()  # 存儲找到的套件
 
-    # 遍歷目錄，忽略排除的目錄
+    if file_path.endswith(('.swift', '.m', '.h')):
+        with open(file_path, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            for i, line in enumerate(lines, start=1):
+                for category, patterns in compiled_api_patterns.items():
+                    for pattern in patterns:
+                        if pattern.search(line):
+                            if category not in found_patterns:
+                                found_patterns[category] = []
+                            found_patterns[category].append((file_path, i))
+
+                if search_deps:
+                    if file_path.endswith('.swift'):
+                        for dep, pattern in compiled_dep_patterns_swift.items():
+                            if pattern.search(line):
+                                found_deps.add(dep)
+                    elif file_path.endswith(('.h', '.m')):
+                        for dep, pattern in compiled_dep_patterns_objc.items():
+                            if pattern.search(line):
+                                found_deps.add(dep)
+
+    return found_patterns, found_deps
+
+def search_files(directory, excluded_dirs, search_deps):
+    files_to_process = []
     for root, dirs, files in os.walk(directory, topdown=True):
         dirs[:] = [d for d in dirs if d not in excluded_dirs]
         for file in files:
-            # 僅檢查特定擴展名的文件
             if file.endswith(('.swift', '.m', '.h')):
                 file_path = os.path.join(root, file)
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    lines = f.readlines()
-                    for i, line in enumerate(lines, start=1):
-                        # 對每行進行API模式和套件檢查
-                        for category, patterns in api_patterns.items():
-                            for pattern in patterns:
-                                if re.search(pattern, line):
-                                    if category not in found_patterns:
-                                        found_patterns[category] = []
-                                    found_patterns[category].append((file_path, i))
-                        # 檢查依賴
-                        for dep in dependencies:
-                            if dep in line:
-                                found_deps.add(dep)
-    return found_patterns, found_deps
+                files_to_process.append(file_path)
+
+    # 使用ThreadPoolExecutor並行處理文件
+    all_found_patterns = {}
+    all_found_deps = set()
+    with ThreadPoolExecutor() as executor:
+        futures = [executor.submit(process_file, file_path, search_deps) for file_path in files_to_process]
+        for future in as_completed(futures):
+            found_patterns, found_deps = future.result()
+            # 合並找到的模式和套件
+            for category, occurrences in found_patterns.items():
+                if category not in all_found_patterns:
+                    all_found_patterns[category] = occurrences
+                else:
+                    all_found_patterns[category].extend(occurrences)
+            all_found_deps.update(found_deps)
+
+    return all_found_patterns, all_found_deps
+
 
 # 將搜索結果寫入文本報告
 def write_txt_report(output_txt_path, found_patterns, found_deps, search_deps):
-    # 創建或覆蓋文本文件，並記錄找到的API模式和套件
     with open(output_txt_path, 'w') as f:
         f.write("Found API Categories:\n")
         for category, occurrences in found_patterns.items():
             f.write(f"- {category}\n")
             file_lines = {}
-            for file_path, line in occurrences:
-                file_name = os.path.basename(file_path)
-                if file_name not in file_lines:
-                    file_lines[file_name] = []
-                file_lines[file_name].append(str(line))
+            for occurrence in occurrences:
+                if len(occurrence) == 2:
+                    file_path, line = occurrence
+                    file_name = os.path.basename(file_path)
+                    if file_name not in file_lines:
+                        file_lines[file_name] = []
+                    file_lines[file_name].append(str(line))
+                else:
+                    # 如果不匹配，打印一個錯誤或警告
+                    print(f"Unexpected occurrence format: {occurrence}")
             for file_name, lines in file_lines.items():
-                f.write(f"  {file_name}:{' '.join(lines)}\n")
+                f.write(f"  {file_name}: {' '.join(lines)}\n")
 
         if search_deps and found_deps:
             f.write("\nFound Dependencies:\n")
             for dep in found_deps:
                 f.write(f"- {dep}\n")
+
 
 # 更新或創建PrivacyInfo.xcprivacy文件，包含所有必需的API類型
 def update_privacy_info(output_path, found_patterns):
@@ -161,10 +201,10 @@ def main():
     exclude_dirs_choice = user_input("Do you want to exclude certain directories 您是否要排除某些目錄 (y/n): ").lower() == 'y'
     excluded_dirs = []
     if exclude_dirs_choice:
-        excluded_dirs = user_input("Please enter directories to exclude (separated by space) 請输入要排除的目錄（用空格分隔）: ").split()
+        excluded_dirs = user_input("Please enter directories to exclude (separated by space) 請輸入要排除的目錄（用空格分隔）: ").split()
 
     # 執行文件搜索，然後更新PrivacyInfo.xcprivacy文件和生成報告
-    found_patterns, found_deps = search_files(args.directory, excluded_dirs)
+    found_patterns, found_deps = search_files(args.directory, excluded_dirs, search_deps)
     
     # Update PrivacyInfo.xcprivacy and generate the report
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
