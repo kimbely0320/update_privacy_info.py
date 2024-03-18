@@ -4,6 +4,8 @@ import datetime
 import xml.etree.ElementTree as ET
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import sys
+import time
 
 # https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api
 api_patterns = {
@@ -48,23 +50,24 @@ dependencies = [
     "url_launcher_ios", "video_player_avfoundation", "wakelock", "webview_flutter_wkwebview"
 ]
 
+compiled_attracking_pattern = re.compile(r'ATTrackingManager.requestTrackingAuthorization')
+
 # 在全局作用域預編譯正則表達式
 compiled_api_patterns = {key: [re.compile(pattern) for pattern in patterns] for key, patterns in api_patterns.items()}
 compiled_dep_patterns_swift = {dep: re.compile(r'import\s+' + re.escape(dep)) for dep in dependencies}
 compiled_dep_patterns_objc = {dep: re.compile(r'#import\s+["<]' + re.escape(dep) + r'[\./]') for dep in dependencies}
 
-
 # 請求用戶輸入的函數
 def user_input(message):
     return input(message)
     
-
+    
 # 在指定目錄中搜索文件，檢查API使用和套件
 # 更新後的搜索文件函數
-def process_file(file_path, search_deps):
+def process_file(file_path, search_deps, found_attracking):
     found_patterns = {}  # 存儲找到的API模式及其位置
     found_deps = set()  # 存儲找到的套件
-
+    
     if file_path.endswith(('.swift', '.m', '.h')):
         with open(file_path, 'r', encoding='utf-8') as f:
             lines = f.readlines()
@@ -81,15 +84,17 @@ def process_file(file_path, search_deps):
                         for dep, pattern in compiled_dep_patterns_swift.items():
                             if pattern.search(line):
                                 found_deps.add(dep)
+                            if compiled_attracking_pattern.search(line):  # 直接在讀取每行時檢查
+                                found_attracking = True
                     elif file_path.endswith(('.h', '.m')):
                         for dep, pattern in compiled_dep_patterns_objc.items():
                             if pattern.search(line):
                                 found_deps.add(dep)
-
-    return found_patterns, found_deps
+    return found_patterns, found_deps, found_attracking
 
 def search_files(directory, excluded_dirs, search_deps):
     files_to_process = []
+    found_attracking = False
     for root, dirs, files in os.walk(directory, topdown=True):
         dirs[:] = [d for d in dirs if d not in excluded_dirs]
         for file in files:
@@ -97,23 +102,33 @@ def search_files(directory, excluded_dirs, search_deps):
                 file_path = os.path.join(root, file)
                 files_to_process.append(file_path)
 
-    # 使用ThreadPoolExecutor並行處理文件
+    total_files = len(files_to_process)
+    files_processed = 0
+
     all_found_patterns = {}
     all_found_deps = set()
+    search_tracking_auth_found = False
+
     with ThreadPoolExecutor() as executor:
-        futures = [executor.submit(process_file, file_path, search_deps) for file_path in files_to_process]
-        for future in as_completed(futures):
-            found_patterns, found_deps = future.result()
-            # 合並找到的模式和套件
-            for category, occurrences in found_patterns.items():
-                if category not in all_found_patterns:
-                    all_found_patterns[category] = occurrences
-                else:
-                    all_found_patterns[category].extend(occurrences)
-            all_found_deps.update(found_deps)
-
-    return all_found_patterns, all_found_deps
-
+        futures = {executor.submit(process_file, file_path, search_deps, found_attracking): file_path for file_path in files_to_process}
+    for future in as_completed(futures):
+        files_processed += 1
+        found_patterns, found_deps, search_tracking_auth = future.result()
+        if search_tracking_auth:
+            search_tracking_auth_found = True  # 只有當發現新的跡象時才更新為True
+        for category, occurrences in found_patterns.items():
+            if category not in all_found_patterns:
+                all_found_patterns[category] = occurrences
+            else:
+                all_found_patterns[category].extend(occurrences)
+        all_found_deps.update(found_deps)
+        # 更新進度
+        progress = (files_processed / total_files) * 100
+        sys.stdout.write(f"\rProgress: {progress:.2f}% ({files_processed}/{total_files})")
+        sys.stdout.flush()
+        
+    print("\nDone processing files.")
+    return all_found_patterns, all_found_deps, search_tracking_auth_found
 
 # 將搜索結果寫入文本報告
 def write_txt_report(output_txt_path, found_patterns, found_deps, search_deps):
@@ -140,25 +155,36 @@ def write_txt_report(output_txt_path, found_patterns, found_deps, search_deps):
             for dep in found_deps:
                 f.write(f"- {dep}\n")
 
+def remove_ns_privacy_tracking_element(dict_elem):
+    children = list(dict_elem)
+    for i, child in enumerate(children):
+        # 找到NSPrivacyTracking鍵
+        if child.tag == 'key' and child.text == 'NSPrivacyTracking':
+            
+            if i + 1 < len(children) and children[i + 1].tag in ['true', 'false']:
+                dict_elem.remove(children[i])   # 刪除<key>
+                dict_elem.remove(children[i + 1]) # 刪除<true/>或<false/>
+            break
 
 # 更新或創建PrivacyInfo.xcprivacy文件，包含所有必需的API類型
-def update_privacy_info(output_path, found_patterns):
-    # 嘗試讀取現有的.xcprivacy文件或創建新文件，然後添加新發現的API類型
+def update_privacy_info(output_path, found_patterns, found_attracking):
     try:
         tree = ET.parse(output_path)
         root = tree.getroot()
     except FileNotFoundError:
         root = ET.Element("plist", version="1.0")
         dict_elem = ET.SubElement(root, "dict")
-        ET.SubElement(dict_elem, "key").text = "NSPrivacyAccessedAPITypes"
-        ET.SubElement(dict_elem, "array")
-    except ET.ParseError:  # 文件損壞或為空時，重新創建
+    except ET.ParseError:
         root = ET.Element("plist", version="1.0")
         dict_elem = ET.SubElement(root, "dict")
-        ET.SubElement(dict_elem, "key").text = "NSPrivacyAccessedAPITypes"
-        ET.SubElement(dict_elem, "array")
 
     dict_elem = root.find('.//dict')
+    
+    remove_ns_privacy_tracking_element(dict_elem)
+    ET.SubElement(dict_elem, "key").text = "NSPrivacyTracking"
+    ET.SubElement(dict_elem, 'true' if found_attracking else 'false')
+
+    #find NSPrivacyAccessedAPITypes
     api_types_key_found = False
     api_types_array = None
     for child in dict_elem:
@@ -187,6 +213,7 @@ def update_privacy_info(output_path, found_patterns):
             reasons_array = ET.SubElement(new_dict, "array")
             reason_string = ET.SubElement(reasons_array, "string")
             reason_string.text = "請在此處插入 " + pattern + " 原因"
+            
 
     tree = ET.ElementTree(root)
     tree.write(output_path, encoding="UTF-8", xml_declaration=True)
@@ -204,7 +231,7 @@ def main():
         excluded_dirs = user_input("Please enter directories to exclude (separated by space) 請輸入要排除的目錄（用空格分隔）: ").split()
 
     # 執行文件搜索，然後更新PrivacyInfo.xcprivacy文件和生成報告
-    found_patterns, found_deps = search_files(args.directory, excluded_dirs, search_deps)
+    found_patterns, found_deps, search_tracking_auth = search_files(args.directory, excluded_dirs, search_deps)
     
     # Update PrivacyInfo.xcprivacy and generate the report
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -212,7 +239,7 @@ def main():
     output_path = os.path.join(args.directory, f"PrivacyInfo.xcprivacy")
     output_txt_path = os.path.join(args.directory, f"{project_name}_{current_date}.txt")
 
-    update_privacy_info(output_path, found_patterns)
+    update_privacy_info(output_path, found_patterns, search_tracking_auth)
     write_txt_report(output_txt_path, found_patterns, found_deps, search_deps)
 
     print(f"PrivacyInfo.xcprivacy file has been updated at {output_path}")
