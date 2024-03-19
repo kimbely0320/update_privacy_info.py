@@ -179,24 +179,16 @@ def update_privacy_info(output_path, found_patterns, found_attracking):
         dict_elem = ET.SubElement(root, "dict")
 
     dict_elem = root.find('.//dict')
-    
+
+    # Remove existing NSPrivacyTracking if present
     remove_ns_privacy_tracking_element(dict_elem)
-    ET.SubElement(dict_elem, "key").text = "NSPrivacyTracking"
-    ET.SubElement(dict_elem, 'true' if found_attracking else 'false')
 
-    #find NSPrivacyAccessedAPITypes
-    api_types_key_found = False
-    api_types_array = None
-    for child in dict_elem:
-        if api_types_key_found:
-            if child.tag == 'array':
-                api_types_array = child
-                break
-        elif child.tag == 'key' and child.text == 'NSPrivacyAccessedAPITypes':
-            api_types_key_found = True
-
-    if api_types_array is None:
+    # Ensure the NSPrivacyAccessedAPITypes key and its array are correctly structured
+    if not dict_elem.find("key[@text='NSPrivacyAccessedAPITypes']"):
+        ET.SubElement(dict_elem, "key").text = "NSPrivacyAccessedAPITypes"
         api_types_array = ET.SubElement(dict_elem, "array")
+    else:
+        api_types_array = dict_elem.find(".//array")
 
     existing_api_types = set()
     for api_type_dict in api_types_array.findall("dict"):
@@ -213,10 +205,14 @@ def update_privacy_info(output_path, found_patterns, found_attracking):
             reasons_array = ET.SubElement(new_dict, "array")
             reason_string = ET.SubElement(reasons_array, "string")
             reason_string.text = "請在此處插入 " + pattern + " 原因"
-            
+
+    # Re-add NSPrivacyTracking at the end with the correct value
+    ET.SubElement(dict_elem, "key").text = "NSPrivacyTracking"
+    ET.SubElement(dict_elem, 'true' if found_attracking else 'false')
 
     tree = ET.ElementTree(root)
     tree.write(output_path, encoding="UTF-8", xml_declaration=True)
+
 
 def main():
     parser = argparse.ArgumentParser(description='Scan project directory for API usage and dependencies.')
