@@ -64,43 +64,56 @@ def user_input(message):
     
 # 在指定目錄中搜索文件，檢查API使用和套件
 # 更新後的搜索文件函數
-def process_file(file_path, search_deps, found_attracking):
-    found_patterns = {}  # 存儲找到的API模式及其位置
-    found_deps = set()  # 存儲找到的套件
-    
+def process_file(file_path, is_api_search, search_deps, found_attracking):
+    found_patterns = {}
+    found_deps = set()
     if file_path.endswith(('.swift', '.m', '.h')):
         with open(file_path, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             for i, line in enumerate(lines, start=1):
-                for category, patterns in compiled_api_patterns.items():
-                    for pattern in patterns:
-                        if pattern.search(line):
-                            if category not in found_patterns:
-                                found_patterns[category] = []
-                            found_patterns[category].append((file_path, i))
-
-                if search_deps:
+                if is_api_search:  # Now using the is_api_search flag
+                    for category, patterns in compiled_api_patterns.items():
+                        for pattern in patterns:
+                            if pattern.search(line):
+                                if category not in found_patterns:
+                                    found_patterns[category] = []
+                                found_patterns[category].append((file_path, i))
+                if search_deps:  # Dependency search check remains the same
                     if file_path.endswith('.swift'):
                         for dep, pattern in compiled_dep_patterns_swift.items():
                             if pattern.search(line):
                                 found_deps.add(dep)
-                            if compiled_attracking_pattern.search(line):  # 直接在讀取每行時檢查
-                                found_attracking = True
                     elif file_path.endswith(('.h', '.m')):
                         for dep, pattern in compiled_dep_patterns_objc.items():
                             if pattern.search(line):
                                 found_deps.add(dep)
+                    if compiled_attracking_pattern.search(line):
+                        found_attracking = True
     return found_patterns, found_deps, found_attracking
 
-def search_files(directory, excluded_dirs, search_deps):
+
+
+def search_files(directory, excluded_dirs_api, excluded_dirs_deps, search_apis, search_deps):
     files_to_process = []
     found_attracking = False
-    for root, dirs, files in os.walk(directory, topdown=True):
-        dirs[:] = [d for d in dirs if d not in excluded_dirs]
-        for file in files:
-            if file.endswith(('.swift', '.m', '.h')):
-                file_path = os.path.join(root, file)
-                files_to_process.append(file_path)
+    # 分別處理API搜索和套件搜索
+    if search_apis:
+        for root, dirs, files in os.walk(directory, topdown=True):
+            dirs[:] = [d for d in dirs if d not in excluded_dirs_api]
+            for file in files:
+                if file.endswith(('.swift', '.m', '.h')):
+                    file_path = os.path.join(root, file)
+                    files_to_process.append((file_path, True))  # True表示這是API搜索
+
+    if search_deps:
+        for root, dirs, files in os.walk(directory, topdown=True):
+            dirs[:] = [d for d in dirs if d not in excluded_dirs_deps]
+            for file in files:
+                if file.endswith(('.swift', '.m', '.h')):
+                    file_path = os.path.join(root, file)
+                    # 確保在同時進行API和套件搜索時不重覆添加文件
+                    if not search_apis or (file_path, True) not in files_to_process:
+                        files_to_process.append((file_path, False))  # False表示這是套件搜索
 
     total_files = len(files_to_process)
     files_processed = 0
@@ -110,12 +123,12 @@ def search_files(directory, excluded_dirs, search_deps):
     search_tracking_auth_found = False
 
     with ThreadPoolExecutor() as executor:
-        futures = {executor.submit(process_file, file_path, search_deps, found_attracking): file_path for file_path in files_to_process}
+        futures = [executor.submit(process_file, file_path, search_api, search_deps, found_attracking) for file_path, search_api in files_to_process]
     for future in as_completed(futures):
         files_processed += 1
         found_patterns, found_deps, search_tracking_auth = future.result()
         if search_tracking_auth:
-            search_tracking_auth_found = True  # 只有當發現新的跡象時才更新為True
+            search_tracking_auth_found = True
         for category, occurrences in found_patterns.items():
             if category not in all_found_patterns:
                 all_found_patterns[category] = occurrences
@@ -126,9 +139,11 @@ def search_files(directory, excluded_dirs, search_deps):
         progress = (files_processed / total_files) * 100
         sys.stdout.write(f"\rProgress: {progress:.2f}% ({files_processed}/{total_files})")
         sys.stdout.flush()
-        
+
     print("\nDone processing files.")
     return all_found_patterns, all_found_deps, search_tracking_auth_found
+
+
 
 # 將搜索結果寫入文本報告
 def write_txt_report(output_txt_path, found_patterns, found_deps, search_deps):
@@ -220,14 +235,23 @@ def main():
     args = parser.parse_args()
 
     # 從用戶獲取輸入，如是否搜索套件，是否排除特定目錄等
-    search_deps = user_input("Do you want to search for dependencies 您是否要搜索套件 (y/n): ").lower() == 'y'
-    exclude_dirs_choice = user_input("Do you want to exclude certain directories 您是否要排除某些目錄 (y/n): ").lower() == 'y'
-    excluded_dirs = []
-    if exclude_dirs_choice:
-        excluded_dirs = user_input("Please enter directories to exclude (separated by space) 請輸入要排除的目錄（用空格分隔）: ").split()
+    search_apis = user_input("Do you want to search for API usage 是否要搜索API使用情況 (y/n): ").lower() == 'y'
+    if search_apis:
+        exclude_dirs_api_choice = user_input("Do you want to exclude certain directories for API search 您是否要為API搜索排除某些目錄 (y/n): ").lower() == 'y'
+        excluded_dirs_api = []
+        if exclude_dirs_api_choice:
+            excluded_dirs_api = user_input("Please enter directories to exclude for API search (separated by space) 請為API搜索輸入要排除的目錄（用空格分隔）: ").split()
+    
+    # 詢問是否搜索套件，並獲取排除目錄信息
+    search_deps = user_input("Do you want to search for dependencies 是否要搜索套件是否有在列表中 (y/n): ").lower() == 'y'
+    if search_deps:
+        exclude_dirs_deps_choice = user_input("Do you want to exclude certain directories for dependencies search 您是否要為套件搜索排除某些目錄 (y/n): ").lower() == 'y'
+        excluded_dirs_deps = []
+        if exclude_dirs_deps_choice:
+            excluded_dirs_deps = user_input("Please enter directories to exclude for dependencies search (separated by space) 請為套件搜索輸入要排除的目錄（用空格分隔）: ").split()
 
     # 執行文件搜索，然後更新PrivacyInfo.xcprivacy文件和生成報告
-    found_patterns, found_deps, search_tracking_auth = search_files(args.directory, excluded_dirs, search_deps)
+    found_patterns, found_deps, search_tracking_auth = search_files(args.directory, excluded_dirs_api, excluded_dirs_deps, search_apis, search_deps)
     
     # Update PrivacyInfo.xcprivacy and generate the report
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
