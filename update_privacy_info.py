@@ -333,7 +333,7 @@ def update_privacy_info(output_path, found_patterns, found_attracking):
 
     # Remove existing NSPrivacyTracking if present
     # 如果存在，則移除現有的NSPrivacyTracking。
-    remove_ns_privacy_tracking_element(dict_elem)
+    #remove_ns_privacy_tracking_element(dict_elem)
 
     # Ensure the NSPrivacyAccessedAPITypes key and its array are correctly structured
     # 確保NSPrivacyAccessedAPITypes鍵及其數組結構正確。
@@ -361,8 +361,8 @@ def update_privacy_info(output_path, found_patterns, found_attracking):
 
     # Re-add NSPrivacyTracking at the end with the correct value
     # 在最後重新添加NSPrivacyTracking，並設置正確的值。
-    ET.SubElement(dict_elem, "key").text = "NSPrivacyTracking"
-    ET.SubElement(dict_elem, 'true' if found_attracking else 'false')
+    #ET.SubElement(dict_elem, "key").text = "NSPrivacyTracking"
+    #ET.SubElement(dict_elem, 'true' if found_attracking else 'false')
 
     tree = ET.ElementTree(root)
     tree.write(output_path, encoding="UTF-8", xml_declaration=True)
