@@ -47,17 +47,29 @@
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
 		<h3 class="heading-element" dir="auto">Input Prompts</h3>
-		<a id="user-content-input-prompts" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#input-prompts"></a></div>
-	<a id="user-content-input-prompts" href="https://github.com/kimbely0320/update_privacy_info.py#input-prompts"></a></div>
-<ul dir="auto">
-	<li>"Do you want to search for dependencies? (y/n): " - Answer 'y' to search for dependencies or 'n' to skip this step.</li>
-	<li>"Do you want to exclude certain directories? (y/n): " - Answer 'y' if you want to exclude directories from the scan.
-		<ul dir="auto">
-			<li>If you chose 'y', you will be prompted: "Please enter directories to exclude (separated by space): ", where you can specify the directories to exclude.</li>
-		</ul>
-	</li>
-	<li><span style="color: #e03e2d;">"Do you want to download privacy_info for dependencies (y/n):" - Answer 'y' to download for privacyinfo or 'n' to skip this step.</span></li>
-</ul>
+		<ol>
+			<li>Do you want to search for API usage? (y/n): <em>This search is aimed at finding cases where the NSPrivacyAccessedAPITypes interface defined by Apple is used.</em>
+				<ol>
+					<li>Do you want to exclude certain directories? (y/n): <em>If 'y' is selected, you will be prompted:</em>
+						<ol>
+							<li>Please enter the directories to exclude (separate with spaces): <em>List the directories here that do not need to be scanned, for example, the Pods directory may also contain the use of related APIs. </em></li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+			<li>Do you want to search if the package is in the list? (y/n): <em>The purpose of this search is to verify whether the third-party packages listed by Apple that require a PrivateInfo document are used.</em>
+				<ol>
+					<li>Do you want to exclude certain directories? (y/n): <em>If 'y' is selected, you will be prompted:</em>
+						<ol>
+							<li>Please enter the directories to exclude (separate with spaces): <em>Mark the directories here that need to be excluded. </em></li>
+						</ol>
+					</li>
+					<li>Do you want to download the privacy_info file of the package? (y/n):<em> Decide whether to download the PrivateInfo document of third-party packages for privacy information review.</em></li>
+				</ol>
+			</li>
+		</ol>
+	</div>
+</div>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
 		<h2 class="heading-element" dir="auto">中文版本</h2>
@@ -104,17 +116,29 @@
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
 		<h3 class="heading-element" dir="auto">輸入提示</h3>
-		<a id="user-content-輸入提示" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#%E8%BC%B8%E5%85%A5%E6%8F%90%E7%A4%BA"></a></div>
-	<a id="user-content-輸入提示" href="https://github.com/kimbely0320/update_privacy_info.py#%E8%BC%B8%E5%85%A5%E6%8F%90%E7%A4%BA"></a></div>
-<ul dir="auto">
-	<li>"您是否要搜索套件？(y/n): " - 回答'y'開始搜索套件，或者'n'跳過此步驟。</li>
-	<li>"您是否要排除某些目錄？(y/n): " - 如果您想從掃描中排除目錄，請回答'y'。
-		<ul dir="auto">
-			<li>如果您選擇了'y'，將提示："請輸入要排除的目錄（用空格分隔）: "，在此處指定要排除的目錄。</li>
-		</ul>
-	</li>
-	<li><span style="color: #e03e2d;">"是否要下載套件的 privacy_info (y/n):" - 回答'y'開始下載套件的privacyinfo檔案，或者'n'跳過此步驟。（3/20新增）</span></li>
-</ul>
+		<ol>
+			<li class="heading-element" dir="auto">否要搜索API使用情況？(y/n)：<em>此項搜索旨在查找使用蘋果定義的NSPrivacyAccessedAPITypes接口的情況。</em>
+				<ol>
+					<li class="heading-element" dir="auto">&nbsp;您是否要排除某些目錄？(y/n)：<em>若選擇'y'，會提示：</em>
+						<ol>
+							<li class="heading-element" dir="auto">請輸入要排除的目錄（用空格分隔）：<em>請在此處列出不需掃描的目錄，例如，Pods目錄下可能也包含了相關API的使用。</em></li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+			<li class="heading-element" dir="auto">是否要搜索套件是否在列表中？(y/n)：<em>此項搜索目的是核查蘋果所列需提供PrivateInfo文件的第三方套件是否被使用。</em>
+				<ol>
+					<li class="heading-element" dir="auto">您是否要排除某些目錄？(y/n)：<em>若選擇'y'，將提示：</em>
+						<ol>
+							<li class="heading-element" dir="auto">請輸入要排除的目錄（用空格分隔）：<em>在此處標明需排除的目錄。</em></li>
+						</ol>
+					</li>
+					<li class="heading-element" dir="auto">是否要下載套件的privacy_info文件？(y/n)：<em>決定是否下載第三方套件的PrivateInfo文件，以便進行隱私信息審查。</em></li>
+				</ol>
+			</li>
+		</ol>
+	</div>
+</div>
 <p dir="auto">如果選下載套件會依據URL 下載，下載完成會新增資料夾 Deps_PrivacyInfos</p>
 <p dir="auto">裡面包涵套件的PrivacyInfo</p>
 <p dir="auto"><strong>如果提供連結或 privateInfo 有不符合，再請告知修正</strong></p>
