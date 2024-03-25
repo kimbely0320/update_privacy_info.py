@@ -1,34 +1,34 @@
 <p>&nbsp;</p>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h1 class="heading-element" dir="auto">Project API and Dependency Scanner</h1>
-		<a id="user-content-project-api-and-dependency-scanner" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#project-api-and-dependency-scanner"></a></div>
-	<a id="user-content-project-api-and-dependency-scanner" href="https://github.com/kimbely0320/update_privacy_info.py#project-api-and-dependency-scanner"></a></div>
+		<h1 dir="auto">Project API and Dependency Scanner</h1>
+	</div>
+</div>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h2 class="heading-element" dir="auto">English Version</h2>
-		<a id="user-content-english-version" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#english-version"></a></div>
-	<a id="user-content-english-version" href="https://github.com/kimbely0320/update_privacy_info.py#english-version"></a></div>
+		<h2 dir="auto">English Version</h2>
+	</div>
+</div>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h3 class="heading-element" dir="auto">Description</h3>
-		<a id="user-content-description" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#description"></a></div>
-	<a id="user-content-description" href="https://github.com/kimbely0320/update_privacy_info.py#description"></a></div>
+		<h3 dir="auto">Description</h3>
+	</div>
+</div>
 <p dir="auto">This script scans a specified project directory for API usage and dependencies, updates or creates a <code>PrivacyInfo.xcprivacy</code> file, and generates a text report of the findings.</p>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h3 class="heading-element" dir="auto">Apple Resource</h3>
-		<a id="user-content-apple-resource" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#apple-resource"></a></div>
-	<a id="user-content-apple-resource" href="https://github.com/kimbely0320/update_privacy_info.py#apple-resource"></a></div>
+		<h3 dir="auto">Apple Resource</h3>
+	</div>
+</div>
 <ul dir="auto">
 	<li><a href="https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/" rel="nofollow">https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/</a></li>
 	<li><a href="https://developer.apple.com/support/third-party-SDK-requirements/" rel="nofollow">https://developer.apple.com/support/third-party-SDK-requirements/</a></li>
 </ul>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h3 class="heading-element" dir="auto">Usage</h3>
-		<a id="user-content-usage" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#usage"></a></div>
-	<a id="user-content-usage" href="https://github.com/kimbely0320/update_privacy_info.py#usage"></a></div>
+		<h3 dir="auto">Usage</h3>
+	</div>
+</div>
 <ol dir="auto">
 	<li><strong>Prerequisites:</strong> Ensure Python 3 is installed on your system.</li>
 	<li><strong>Running the script:</strong>
@@ -37,7 +37,7 @@
 			<li>Navigate to the script's directory.</li>
 			<li>Run the script using the command:
 				<div dir="auto">
-					<pre><code>python3 update_privacy_info.py &lt;path-to-your-project-directory&gt;</code><code></code></pre>
+					<pre><code>python3 update_privacy_info.py &lt;path-to-your-project-directory&gt;</code></pre>
 				</div>
 			</li>
 		</ul>
@@ -45,56 +45,66 @@
 	<li><strong>Follow the prompts</strong> to choose whether to search for dependencies and whether to exclude any directories.</li>
 </ol>
 <div dir="auto">
+	<p class="markdown-heading" dir="auto">&nbsp;</p>
+	<h3 dir="auto">Input Prompts</h3>
+	<ol>
+		<li>Do you want to search for API usage? (y/n): <em>This search is aimed at finding cases where the NSPrivacyAccessedAPITypes interface defined by Apple is used.</em>
+			<ol>
+				<li>Do you want to exclude certain directories? (y/n): <em>If 'y' is selected, you will be prompted:</em>
+					<ol>
+						<li>Please enter the directories to exclude (separate with spaces): <em>List the directories here that do not need to be scanned, for example, the Pods directory may also contain the use of related APIs. </em></li>
+					</ol>
+				</li>
+			</ol>
+		</li>
+		<li>Do you want to search if the package is in the list? (y/n): <em>The purpose of this search is to verify whether the third-party packages listed by Apple that require a PrivateInfo document are used.</em>
+			<ol>
+				<li>Do you want to exclude certain directories? (y/n): <em>If 'y' is selected, you will be prompted:</em>
+					<ol>
+						<li>Please enter the directories to exclude (separate with spaces): <em>Mark the directories here that need to be excluded. </em></li>
+					</ol>
+				</li>
+				<li>Do you want to download the privacy_info file of the package? (y/n):<em> Decide whether to download the PrivateInfo document of third-party packages for privacy information review.</em></li>
+			</ol>
+		</li>
+	</ol>
+	<p>&nbsp;</p>
+	<h1><small>Under the project:</small></h1>
+	<p><img style="height: 300px; width: 680px;" src="https://github.com/kimbely0320/update_privacy_info.py/blob/f17aa01087faa8919d4306e637479160761be48d/%E6%88%AA%E5%9C%96%202024-03-25%20%E4%B8%8B%E5%8D%884.48.49.png" alt="" /></p>
+	<ul>
+		<li>Generating PrivacyInfo file<span class="Apple-converted-space">&nbsp;</span></li>
+		<li>ProjectName_&lt;Date&gt;.txt: Inside, it will display the usage ofAPIs &amp; the situation with third-party packages.<span class="Apple-converted-space">&nbsp;</span></li>
+		<li>Deps_PrivacyInfos folder: Inside, there will be PrivacyInfo files of the third-party packages us</li>
+	</ul>
+	<hr />
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+</div>
+<div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h3 class="heading-element" dir="auto">Input Prompts</h3>
-		<ol>
-			<li>Do you want to search for API usage? (y/n): <em>This search is aimed at finding cases where the NSPrivacyAccessedAPITypes interface defined by Apple is used.</em>
-				<ol>
-					<li>Do you want to exclude certain directories? (y/n): <em>If 'y' is selected, you will be prompted:</em>
-						<ol>
-							<li>Please enter the directories to exclude (separate with spaces): <em>List the directories here that do not need to be scanned, for example, the Pods directory may also contain the use of related APIs. </em></li>
-						</ol>
-					</li>
-				</ol>
-			</li>
-			<li>Do you want to search if the package is in the list? (y/n): <em>The purpose of this search is to verify whether the third-party packages listed by Apple that require a PrivateInfo document are used.</em>
-				<ol>
-					<li>Do you want to exclude certain directories? (y/n): <em>If 'y' is selected, you will be prompted:</em>
-						<ol>
-							<li>Please enter the directories to exclude (separate with spaces): <em>Mark the directories here that need to be excluded. </em></li>
-						</ol>
-					</li>
-					<li>Do you want to download the privacy_info file of the package? (y/n):<em> Decide whether to download the PrivateInfo document of third-party packages for privacy information review.</em></li>
-				</ol>
-			</li>
-		</ol>
+		<h2 dir="auto">中文版本</h2>
 	</div>
 </div>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h2 class="heading-element" dir="auto">中文版本</h2>
-		<a id="user-content-中文版本" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#%E4%B8%AD%E6%96%87%E7%89%88%E6%9C%AC"></a></div>
-	<a id="user-content-中文版本" href="https://github.com/kimbely0320/update_privacy_info.py#%E4%B8%AD%E6%96%87%E7%89%88%E6%9C%AC"></a></div>
-<div dir="auto">
-	<div class="markdown-heading" dir="auto">
-		<h3 class="heading-element" dir="auto">描述</h3>
-		<a id="user-content-描述" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#%E6%8F%8F%E8%BF%B0"></a></div>
-	<a id="user-content-描述" href="https://github.com/kimbely0320/update_privacy_info.py#%E6%8F%8F%E8%BF%B0"></a></div>
+		<h3 dir="auto">描述</h3>
+	</div>
+</div>
 <p dir="auto">此腳本掃描指定的項目目錄，是否有使用Apple 列出需要註記API和列出套件，更新或創建<code>PrivacyInfo.xcprivacy</code>文件，並生成搜索結果的文本報告。</p>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h3 class="heading-element" dir="auto">Apple Resource</h3>
-		<a id="user-content-apple-resource-1" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#apple-resource-1"></a></div>
-	<a id="user-content-apple-resource-1" href="https://github.com/kimbely0320/update_privacy_info.py#apple-resource-1"></a></div>
+		<h3 dir="auto">Apple Resource</h3>
+	</div>
+</div>
 <ul dir="auto">
 	<li><a href="https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/" rel="nofollow">https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/</a></li>
 	<li><a href="https://developer.apple.com/support/third-party-SDK-requirements/" rel="nofollow">https://developer.apple.com/support/third-party-SDK-requirements/</a></li>
 </ul>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h3 class="heading-element" dir="auto">使用方法</h3>
-		<a id="user-content-使用方法" class="anchor" href="https://github.com/kimbely0320/update_privacy_info.py#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"></a></div>
-	<a id="user-content-使用方法" href="https://github.com/kimbely0320/update_privacy_info.py#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"></a></div>
+		<h3 dir="auto">使用方法</h3>
+	</div>
+</div>
 <ol dir="auto">
 	<li>**前提條件：**確保系統上安裝了Python 3。</li>
 	<li><strong>運行腳本：</strong>
@@ -103,8 +113,8 @@
 			<li>導航至腳本所在目錄。</li>
 			<li>使用以下命令運行腳本：
 				<div dir="auto">
-					<div class="snippet-clipboard-content notranslate position-relative overflow-auto">
-						<pre class="notranslate"><code>python3 update_privacy_info.py &lt;項目目錄路徑&gt;</code></pre>
+					<div class="notranslate overflow-auto position-relative snippet-clipboard-content">
+						<pre><code>python3 update_privacy_info.py &lt;項目目錄路徑&gt;</code></pre>
 					</div>
 					<div dir="auto">&nbsp;</div>
 				</div>
@@ -115,56 +125,64 @@
 </ol>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
-		<h3 class="heading-element" dir="auto">輸入提示</h3>
+		<h3 dir="auto">輸入提示</h3>
 		<ol>
-			<li class="heading-element" dir="auto">否要搜索API使用情況？(y/n)：<em>此項搜索旨在查找使用蘋果定義的NSPrivacyAccessedAPITypes接口的情況。</em>
+			<li dir="auto">否要搜索API使用情況？(y/n)：<em>此項搜索旨在查找使用蘋果定義的NSPrivacyAccessedAPITypes接口的情況。</em>
 				<ol>
-					<li class="heading-element" dir="auto">&nbsp;您是否要排除某些目錄？(y/n)：<em>若選擇'y'，會提示：</em>
+					<li dir="auto">&nbsp;您是否要排除某些目錄？(y/n)：<em>若選擇'y'，會提示：</em>
 						<ol>
-							<li class="heading-element" dir="auto">請輸入要排除的目錄（用空格分隔）：<em>請在此處列出不需掃描的目錄，例如，Pods目錄下可能也包含了相關API的使用。</em></li>
+							<li dir="auto">請輸入要排除的目錄（用空格分隔）：<em>請在此處列出不需掃描的目錄，例如，Pods目錄下可能也包含了相關API的使用。</em></li>
 						</ol>
 					</li>
 				</ol>
 			</li>
-			<li class="heading-element" dir="auto">是否要搜索套件是否在列表中？(y/n)：<em>此項搜索目的是核查蘋果所列需提供PrivateInfo文件的第三方套件是否被使用。</em>
+			<li dir="auto">是否要搜索套件是否在列表中？(y/n)：<em>此項搜索目的是核查蘋果所列需提供PrivateInfo文件的第三方套件是否被使用。</em>
 				<ol>
-					<li class="heading-element" dir="auto">您是否要排除某些目錄？(y/n)：<em>若選擇'y'，將提示：</em>
+					<li dir="auto">您是否要排除某些目錄？(y/n)：<em>若選擇'y'，將提示：</em>
 						<ol>
-							<li class="heading-element" dir="auto">請輸入要排除的目錄（用空格分隔）：<em>在此處標明需排除的目錄。</em></li>
+							<li dir="auto">請輸入要排除的目錄（用空格分隔）：<em>在此處標明需排除的目錄。</em></li>
 						</ol>
 					</li>
-					<li class="heading-element" dir="auto">是否要下載套件的privacy_info文件？(y/n)：<em>決定是否下載第三方套件的PrivateInfo文件，以便進行隱私信息審查。</em></li>
+					<li dir="auto">是否要下載套件的privacy_info文件？(y/n)：<em>決定是否下載第三方套件的PrivateInfo文件，以便進行隱私信息審查。</em></li>
 				</ol>
 			</li>
 		</ol>
 	</div>
 </div>
-<p dir="auto">如果選下載套件會依據URL 下載，下載完成會新增資料夾 Deps_PrivacyInfos</p>
-<p dir="auto">裡面包涵套件的PrivacyInfo</p>
-<p dir="auto"><strong>如果提供連結或 privateInfo 有不符合，再請告知修正</strong></p>
-<p dir="auto"><strong>If the provided links or private information do not comply, please let us know for corrections.</strong></p>
+<h3 dir="auto">產出資訊</h3>
+<p>&nbsp;</p>
+<p>位於專案底下會看到</p>
+<ul>
+	<li>生成 PrivacyInfo檔案</li>
+	<li>專案命名_&lt;日期&gt;.txt : 裡面會顯示使用API 情形&amp;第三方套件情形</li>
+	<li>Deps_PrivacyInfos 資料夾：裡面會有有使用到的第三方套件 PrivacyInfo 檔案</li>
+</ul>
+<p><img style="height: 300px; width: 680px;" src="https://github.com/kimbely0320/update_privacy_info.py/blob/f17aa01087faa8919d4306e637479160761be48d/%E6%88%AA%E5%9C%96%202024-03-25%20%E4%B8%8B%E5%8D%884.48.49.png" alt="" /></p>
+<hr />
+<h2 dir="auto">套件Privacyinfo 來源</h2>
 <div class="markdown-heading" dir="auto">
-	<h2 class="heading-element" dir="auto">套件Privacyinfo 來源</h2>
-	<table style="border-collapse: collapse; width: 100%; height: 1694px;" border="1">
+	<p dir="auto"><strong>如果提供連結或 privateInfo 有不符合，再請告知修正</strong></p>
+	<p dir="auto"><strong>If the provided links or private information do not comply, please let us know for corrections.</strong></p>
+	<table style="border-collapse: collapse; height: 1694px; width: 100%;" border="1" cellspacing="0">
 		<tbody>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">套件名稱</td>
-				<td style="width: 74.109014%; height: 22px;">來源</td>
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">套件名稱</td>
+				<td style="height: 22px; width: 74.109014%;">來源</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>Abseil</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>https://github.com/abseil/abseil-cpp/blob/a41e0168bf2e4f071adc145e0ea8ccec767cd98f/PrivacyInfo.xcprivacy#L4</div>
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -173,7 +191,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -183,8 +201,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -197,7 +215,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -211,8 +229,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -229,7 +247,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -247,8 +265,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -269,7 +287,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -291,8 +309,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -313,7 +331,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -335,8 +353,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -357,7 +375,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -379,8 +397,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -401,7 +419,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -423,8 +441,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -445,7 +463,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -467,8 +485,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -489,7 +507,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -511,8 +529,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -533,7 +551,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -555,8 +573,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -577,7 +595,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -599,8 +617,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -621,7 +639,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -643,8 +661,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -665,7 +683,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -687,8 +705,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -709,7 +727,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -731,8 +749,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -753,7 +771,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -775,8 +793,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -797,7 +815,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -819,8 +837,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -841,7 +859,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -863,8 +881,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -885,7 +903,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -907,8 +925,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -929,7 +947,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -951,8 +969,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -973,7 +991,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -995,8 +1013,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1017,7 +1035,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1039,8 +1057,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1061,7 +1079,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1083,8 +1101,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1105,7 +1123,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1127,8 +1145,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1149,7 +1167,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1171,8 +1189,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1193,7 +1211,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1215,8 +1233,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1237,7 +1255,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1259,8 +1277,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1281,7 +1299,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1303,8 +1321,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1325,7 +1343,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1347,8 +1365,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1369,7 +1387,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1391,8 +1409,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1413,7 +1431,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1435,8 +1453,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1457,7 +1475,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1479,8 +1497,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1501,7 +1519,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1523,8 +1541,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1545,7 +1563,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1567,8 +1585,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1589,7 +1607,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1611,8 +1629,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1633,7 +1651,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1655,8 +1673,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1677,7 +1695,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1699,8 +1717,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1721,7 +1739,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1743,8 +1761,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1765,7 +1783,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1787,8 +1805,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1809,7 +1827,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1831,8 +1849,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1853,7 +1871,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1875,8 +1893,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1897,7 +1915,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1919,8 +1937,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1941,7 +1959,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -1963,8 +1981,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -1985,7 +2003,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2007,8 +2025,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 66px;">
-				<td style="width: 25.890986%; height: 66px;">
+			<tr>
+				<td style="height: 66px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2029,7 +2047,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 66px;">
+				<td style="height: 66px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2053,8 +2071,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2075,7 +2093,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2097,8 +2115,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2119,7 +2137,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2141,8 +2159,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2163,7 +2181,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2185,8 +2203,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2207,7 +2225,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2229,8 +2247,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2251,7 +2269,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2273,8 +2291,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2295,7 +2313,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2317,8 +2335,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2339,7 +2357,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2361,8 +2379,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2383,7 +2401,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2405,8 +2423,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2427,7 +2445,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2449,8 +2467,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2471,7 +2489,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2493,8 +2511,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2515,7 +2533,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2537,8 +2555,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 44px;">
-				<td style="width: 25.890986%; height: 44px;">
+			<tr>
+				<td style="height: 44px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2559,7 +2577,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 44px;">
+				<td style="height: 44px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2581,8 +2599,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2603,7 +2621,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2625,8 +2643,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2647,7 +2665,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2669,8 +2687,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2691,7 +2709,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2713,8 +2731,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2735,7 +2753,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2757,8 +2775,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2779,7 +2797,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2801,8 +2819,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2823,7 +2841,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2845,8 +2863,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2867,7 +2885,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2889,8 +2907,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2911,7 +2929,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2933,8 +2951,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2955,7 +2973,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -2977,8 +2995,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -2999,7 +3017,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -3021,8 +3039,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -3043,7 +3061,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -3065,8 +3083,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -3087,7 +3105,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -3285,8 +3303,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -3307,7 +3325,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -3329,8 +3347,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -3351,7 +3369,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -3373,8 +3391,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -3395,7 +3413,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
@@ -3417,8 +3435,8 @@
 					</div>
 				</td>
 			</tr>
-			<tr style="height: 22px;">
-				<td style="width: 25.890986%; height: 22px;">
+			<tr>
+				<td style="height: 22px; width: 25.890986%;">
 					<div>
 						<div>
 							<div>
@@ -3439,7 +3457,7 @@
 						</div>
 					</div>
 				</td>
-				<td style="width: 74.109014%; height: 22px;">
+				<td style="height: 22px; width: 74.109014%;">
 					<div>
 						<div>
 							<div>
