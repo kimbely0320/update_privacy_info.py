@@ -71,7 +71,7 @@ dependencies_info = {
   "FMDB": "https://raw.githubusercontent.com/ccgus/fmdb/master/privacy/PrivacyInfo.xcprivacy",
   "geolocator_apple": "https://raw.githubusercontent.com/Baseflow/flutter-geolocator/main/geolocator_apple/ios/Resources/PrivacyInfo.xcprivacy",
   "GoogleDataTransport": "https://raw.githubusercontent.com/google/GoogleDataTransport/main/GoogleDataTransport/Resources/PrivacyInfo.xcprivacy",
-  "GoogleSignIn": "https://raw.githubusercontent.com/google/GoogleSignIn-iOS/privacy-manifest/GoogleSignIn/Sources/Resources/PrivacyInfo.xcprivacy",
+  "GoogleSignIn": "https://raw.githubusercontent.com/google/GoogleSignIn-iOS/main/GoogleSignIn/Sources/Resources/PrivacyInfo.xcprivacy",
   "GoogleToolboxForMac": "https://raw.githubusercontent.com/google/google-toolbox-for-mac/main/Resources/Base/PrivacyInfo.xcprivacy",
   "GoogleUtilities": "https://raw.githubusercontent.com/google/GoogleUtilities/main/GoogleUtilities/Privacy/Resources/PrivacyInfo.xcprivacy",
   "grpcpp": "https://raw.githubusercontent.com/grpc/grpc/master/src/objective-c/PrivacyInfo.xcprivacy",
