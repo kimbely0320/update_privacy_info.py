@@ -1837,7 +1837,7 @@
 											<div>
 												<div>
 													<div>
-														<div>https://github.com/google/GoogleSignIn-iOS/blob/privacy-manifest/GoogleSignIn/Sources/Resources/PrivacyInfo.xcprivacy</div>
+														<div>https://github.com/google/GoogleSignIn-iOS/blob/main/GoogleSignIn/Sources/Resources/PrivacyInfo.xcprivacy</div>
 													</div>
 												</div>
 											</div>
