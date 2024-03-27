@@ -15,6 +15,7 @@
 	</div>
 </div>
 <p dir="auto">This script scans a specified project directory for API usage and dependencies, updates or creates a <code>PrivacyInfo.xcprivacy</code> file, and generates a text report of the findings.</p>
+<p dir="auto">If you are using a <span style="color: #ff0000;">non-UTF-8</span> environment, please download <strong>update_privacy_info_without_UTF8.py</strong>. Additionally, since the chardet Python package is used for encoding detection, you need to install it before use by following the instructions at: <a href="https://www.geeksforgeeks.org/how-to-install-python-chardet-on-macos/">https://www.geeksforgeeks.org/how-to-install-python-chardet-on-macos/</a></p>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
 		<h3 dir="auto">Apple Resource</h3>
@@ -91,6 +92,7 @@
 	</div>
 </div>
 <p dir="auto">此腳本掃描指定的項目目錄，是否有使用Apple 列出需要註記API和列出套件，更新或創建<code>PrivacyInfo.xcprivacy</code>文件，並生成搜索結果的文本報告。</p>
+<p dir="auto">如果你使用<span style="color: #ff0000;">非 UTF-8</span> 環境請下載<strong>update_privacy_info_without_UTF8.py</strong>，並且由於有用到chardet 這個 python 套件進行搜索編碼，<br />需要在使用前先加入 ：<a href="https://www.geeksforgeeks.org/how-to-install-python-chardet-on-macos/">https://www.geeksforgeeks.org/how-to-install-python-chardet-on-macos/</a></p>
 <div dir="auto">
 	<div class="markdown-heading" dir="auto">
 		<h3 dir="auto">Apple Resource</h3>
