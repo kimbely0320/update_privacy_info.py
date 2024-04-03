@@ -122,7 +122,8 @@ dependencies_info = {
   "url_launcher_ios": "https://raw.githubusercontent.com/flutter/packages/main/packages/url_launcher/url_launcher_ios/ios/Resources/PrivacyInfo.xcprivacy",
   "video_player_avfoundation": "https://raw.githubusercontent.com/flutter/packages/main/packages/video_player/video_player_avfoundation/darwin/Resources/PrivacyInfo.xcprivacy",
   "wakelock": "No,GitHub:https://github.com/creativecreatorormaybenot/wakelock",
-  "webview_flutter_wkwebview": "https://raw.githubusercontent.com/flutter/packages/main/packages/webview_flutter/webview_flutter_wkwebview/ios/Resources/PrivacyInfo.xcprivacy"
+  "webview_flutter_wkwebview": "https://raw.githubusercontent.com/flutter/packages/main/packages/webview_flutter/webview_flutter_wkwebview/ios/Resources/PrivacyInfo.xcprivacy",
+  "CocoaLumberjack": "https://raw.githubusercontent.com/CocoaLumberjack/CocoaLumberjack/master/Sources/CocoaLumberjack/PrivacyInfo.xcprivacy"
 }
 
 
