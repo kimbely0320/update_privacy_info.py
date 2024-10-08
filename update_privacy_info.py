@@ -419,11 +419,16 @@ def main():
     search_deps = user_input("Do you want to search for dependencies 是否要搜索套件是否有在列表中 (y/n): ").lower() == 'y'
     if search_deps:
         exclude_dirs_deps_choice = user_input("Do you want to exclude certain directories for dependencies search 您是否要為套件搜索排除某些目錄 (y/n): ").lower() == 'y'
-        excluded_dirs_deps = []
+        
         if exclude_dirs_deps_choice:
             excluded_dirs_deps = user_input("Please enter directories to exclude for dependencies search (separated by space) 請為套件搜索輸入要排除的目錄（用空格分隔）: ").split()
+        else:
+            excluded_dirs_deps = []
 
         download_privacy_info = user_input("Do you want to download privacy_info for dependencies 是否要下載套件的 privacy_info (y/n): ").lower() == 'y'
+    else:
+        excluded_dirs_deps = []
+        download_privacy_info = False
 
     # Execute file search, then update PrivacyInfo.xcprivacy file and generate report
     found_patterns, found_deps, search_tracking_auth = search_files(args.directory, excluded_dirs_api, excluded_dirs_deps, search_apis, search_deps)
